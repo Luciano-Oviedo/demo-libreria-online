@@ -62,7 +62,7 @@ Construir una aplicación web que:
 
 ## Cómo probar la aplicación
 
-1. Puedes probar todas las funcionalidades desde la [🌐 Demo](https://luciano-oviedo.github.io/Web-informativa-de-ciberseguridad/).
+1. Puedes probar todas las funcionalidades desde la [🌐 Demo](https://luciano-oviedo.github.io/Web-informativa-de-ciberseguridad/) desplegada en Vercel.
 
 Alternativamente, puedes:
 

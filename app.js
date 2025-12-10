@@ -10,7 +10,7 @@ import Usuario from "./models/usuarios.js";
 
 // Configuración del servidor
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middlewares globales
 app.use(express.json());
@@ -34,24 +34,27 @@ app.set("views", "./views");
 app.use("/api/usuarios", routerUsuarios);
 app.use("/api/libros", routerLibros);
 
+// Middleware global de errores
+app.use(errorHandler);
+
 // Inicialización del servidor
 const iniciarServidor = async () => {
   try {
     await sequelize.authenticate();
     console.log("Conexión a la base de datos exitosa");
 
-    // Creamos y limpiamos la tabla usuarios cada vez que mi demo en Vercel hace un redeploy o cold start
     await Usuario.sync({ force: true });
 
-    app.listen(port, () => {
-      console.log(`Servidor escuchando en puerto: ${port}`);
-    });
+    if (process.env.NODE_ENV !== "vercel") {
+      app.listen(port, () => {
+        console.log(`Servidor escuchando en puerto: ${port}`);
+      });
+    }
   } catch (error) {
     console.error("Arranque fallido del servidor:", error);
   }
 };
 
-// Middleware global de errores
-app.use(errorHandler);
-
 iniciarServidor();
+
+export default app;
