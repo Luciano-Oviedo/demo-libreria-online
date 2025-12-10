@@ -26,13 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (response.status === 401) {
       // Intentamos refrescar token
-      const refreshResponse = await fetch(
-        `/api/usuarios/${usuarioId}/refrescar`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const refreshResponse = await fetch(`/usuarios/${usuarioId}/refrescar`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       if (!refreshResponse.ok) {
         // Si refrescar falló, recargar la página para que se muestre error.hbs desde backend SSR
@@ -67,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const response = await fetchConRefresh(
-          `/api/usuarios/${usuarioId}/libros/compras`,
+          `/usuarios/${usuarioId}/libros/compras`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

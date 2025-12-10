@@ -30,9 +30,14 @@ app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
 app.set("views", "./views");
 
+// Ruta raíz
+app.get("/", (req, res) => {
+  res.redirect("/libros");
+});
+
 // Configuración de rutas
-app.use("/api/usuarios", routerUsuarios);
-app.use("/api/libros", routerLibros);
+app.use("/usuarios", routerUsuarios);
+app.use("/libros", routerLibros);
 
 // Middleware global de errores
 app.use(errorHandler);

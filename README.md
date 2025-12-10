@@ -72,6 +72,6 @@ Alternativamente, puedes:
 
 3. Ejecutar el servidor con npm start.
 
-4. Acceder a http://localhost:3000/api/libros y regístrate para probar la gestión de libros y compra.
+4. Acceder a http://localhost:${process.env.PORT}/libros y regístrate para probar la gestión de libros y compra.
 
 5. Explorar el catálogo, agrega libros al carrito y finaliza compras para ver el stock actualizado.

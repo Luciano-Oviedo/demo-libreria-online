@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const forms = document.querySelectorAll("form[action^='/api/usuarios/']");
+  const forms = document.querySelectorAll("form[action^='/usuarios/']");
 
   forms.forEach((form) => {
     form.addEventListener("submit", async (e) => {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (url.includes("/login")) {
         // Login sí redirige
-        window.location.href = `/api/usuarios/${json.usuarioId}/libros`;
+        window.location.href = `/usuarios/${json.usuarioId}/libros`;
       }
     });
   });
