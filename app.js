@@ -54,5 +54,3 @@ const iniciarServidor = async () => {
 };
 
 iniciarServidor();
-
-export default app;
