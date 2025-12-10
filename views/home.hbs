@@ -1,0 +1,189 @@
+<!-- Botones formulario registro y login -->
+<section class="d-flex justify-content-center gap-3 my-4">
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#modalLogin"
+  >
+    Iniciar sesión
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#modalRegistro"
+  >
+    Registrarse
+  </button>
+</section>
+
+<!-- Catálogo -->
+<section id="catalogo" class="mb-5">
+  <h2 class="mb-4 text-primary text-center">Catálogo de libros</h2>
+  <p class="mb-4 text-center">Debes iniciar sesión para poder realizar compras</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{#each libros}}
+      <article class="col">
+        <div class="card h-100 shadow-sm border-secondary bg-dark text-white">
+          <div
+            style="background-color: #212529; height: 300px; padding-top: 12px; display: flex; justify-content: center; align-items: flex-start;"
+          >
+            <img
+              src="{{this.thumbnail}}"
+              alt="Portada de {{this.titulo}}"
+              style="max-height: 100%; max-width: 100%; object-fit: contain;"
+            />
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{this.titulo}}</h5>
+            <p class="card-text text-info fst-italic">
+              {{#if this.autor}}
+                {{this.autor}}
+              {{else}}
+                Autor desconocido
+              {{/if}}
+            </p>
+          </div>
+        </div>
+      </article>
+    {{/each}}
+  </div>
+</section>
+
+<section>
+  <!-- Modal Login -->
+  <div
+    class="modal fade"
+    id="modalLogin"
+    tabindex="-1"
+    aria-labelledby="modalLoginLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form
+        class="modal-content bg-dark text-white"
+        method="POST"
+        action="/api/usuarios/login"
+      >
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLoginLabel">Iniciar sesión</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- CONTENEDOR ERROR LOGIN -->
+          <div id="loginError" class="alert alert-danger d-none"></div>
+
+          <div class="mb-3">
+            <label for="loginCorreo" class="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              class="form-control"
+              id="loginCorreo"
+              name="correo"
+              placeholder="usuario@ejemplo.com"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="loginContraseña" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="loginContraseña"
+              name="contraseña"
+              required
+              minlength="8"
+            />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Ingresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Registro -->
+  <div
+    class="modal fade"
+    id="modalRegistro"
+    tabindex="-1"
+    aria-labelledby="modalRegistroLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form
+        class="modal-content bg-dark text-white"
+        method="POST"
+        action="/api/usuarios/registro"
+      >
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRegistroLabel">Registro de usuario</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- CONTENEDOR ERROR REGISTRO -->
+          <div id="registroError" class="alert alert-danger d-none"></div>
+
+          <div class="mb-3">
+            <label for="registroNombre" class="form-label">Nombre de usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registroNombre"
+              name="nombre"
+              required
+              minlength="3"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="registroCorreo" class="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              class="form-control"
+              id="registroCorreo"
+              name="correo"
+              placeholder="usuario@ejemplo.com"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label
+              for="registroContraseña"
+              class="form-label"
+            >Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="registroContraseña"
+              name="contraseña"
+              required
+              minlength="8"
+            />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="/js/auth.js" defer></script>

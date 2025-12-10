@@ -1,0 +1,172 @@
+<!-- Encabezado con buscador y botón de carrito -->
+<section class="d-flex justify-content-between align-items-center my-4">
+  <form
+    id="formBusqueda"
+    class="d-flex w-75"
+    method="GET"
+    action="/api/usuarios/{{usuarioId}}/libros/buscar"
+  >
+    <input
+      type="text"
+      class="form-control me-2"
+      name="q"
+      placeholder="Buscar libros..."
+    />
+    <button class="btn btn-primary" type="submit">Buscar</button>
+  </form>
+
+  <button
+    class="btn btn-outline-info position-relative"
+    id="btnCarrito"
+    data-bs-toggle="modal"
+    data-bs-target="#modalCarrito"
+  >
+    Carrito
+    <span
+      id="contadorCarrito"
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+    >
+      0
+    </span>
+  </button>
+</section>
+
+<div
+  id="alertaCarrito"
+  class="alert alert-success alert-dismissible fade"
+  role="alert"
+  style="position: fixed; top: 20px; right: 20px; z-index: 2000;"
+>
+  Agregaste el libro al carrito de compras
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<!-- Catálogo privado -->
+<section id="catalogoPrivado">
+  <h2 class="mb-4 text-primary text-center">Catálogo de libros</h2>
+
+  {{#if mensaje}}
+    <div class="alert alert-warning text-center" role="alert">
+      {{mensaje}}
+    </div>
+  {{/if}}
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{#each libros}}
+      <article class="col">
+        <div class="card h-100 shadow-sm border-secondary bg-dark text-white">
+
+          <!-- Portada -->
+          <div
+            style="background-color: #212529; height: 300px; padding-top: 12px; display: flex; justify-content: center; align-items: flex-start;"
+          >
+            <img
+              src="https://covers.openlibrary.org/b/id/{{this.cover_id}}-M.jpg"
+              alt="Portada de {{this.titulo}}"
+              style="max-height: 100%; max-width: 100%; object-fit: contain;"
+            />
+          </div>
+
+          <!-- Contenido -->
+          <div class="card-body text-center">
+            <h5 class="card-title">{{this.titulo}}</h5>
+            <p class="card-text text-info fst-italic">
+              {{#if this.autor}}
+                {{this.autor}}
+              {{else}}
+                Autor desconocido
+              {{/if}}
+            </p>
+
+            <p class="fw-bold text-success">${{this.precio}}</p>
+
+            {{#if this.cantidad_disponible}}
+              <div
+                class="d-flex justify-content-center align-items-center gap-2 mb-3"
+              >
+                <button
+                  class="btn btn-outline-secondary btnRestar"
+                  data-id="{{this.id}}"
+                >-</button>
+
+                <span
+                  class="fw-bold cantidadSeleccionada"
+                  data-id="{{this.id}}"
+                >1</span>
+
+                <button
+                  class="btn btn-outline-secondary btnSumar"
+                  data-id="{{this.id}}"
+                >+</button>
+              </div>
+
+              <button
+                class="btn btn-primary btnAgregarCarrito w-100"
+                data-id="{{this.id}}"
+                data-titulo="{{this.titulo}}"
+                data-precio="{{this.precio}}"
+                data-stock="{{this.cantidad_disponible}}"
+              >
+                Agregar al carrito
+              </button>
+
+              <p class="mt-2 text-info">Stock disponible:
+                {{this.cantidad_disponible}}</p>
+
+            {{else}}
+              <button class="btn btn-secondary w-100" disabled>Sin stock</button>
+            {{/if}}
+          </div>
+        </div>
+      </article>
+    {{/each}}
+  </div>
+</section>
+
+<!-- Modal Carrito -->
+<div
+  class="modal fade"
+  id="modalCarrito"
+  tabindex="-1"
+  aria-labelledby="modalCarritoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCarritoLabel">Carrito</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <ul id="listaCarrito" class="list-group bg-dark text-white">
+        </ul>
+
+        <hr />
+
+        <h5 class="text-end">
+          Total:
+          <span id="totalCarrito" class="text-success fw-bold">$0</span>
+        </h5>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          class="btn btn-success"
+          id="btnFinalizarCompra"
+          data-usuarioid="{{usuarioId}}"
+        >
+          Finalizar compra
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/catalogo.js" defer></script>
