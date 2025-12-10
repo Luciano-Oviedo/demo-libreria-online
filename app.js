@@ -45,11 +45,9 @@ const iniciarServidor = async () => {
 
     await Usuario.sync({ force: true });
 
-    if (process.env.NODE_ENV !== "vercel") {
-      app.listen(port, () => {
-        console.log(`Servidor escuchando en puerto: ${port}`);
-      });
-    }
+    app.listen(port, () => {
+      console.log(`Servidor escuchando en puerto: ${port}`);
+    });
   } catch (error) {
     console.error("Arranque fallido del servidor:", error);
   }
