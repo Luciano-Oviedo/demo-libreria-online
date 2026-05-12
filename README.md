@@ -62,10 +62,6 @@ Construir una aplicación web que:
 
 ## Cómo probar la aplicación
 
-1. Puedes probar todas las funcionalidades desde la [🌐 Demo](https://despliegue-demo-libreria-online.onrender.com) desplegada en Render.
-
-Alternativamente, puedes:
-
 1. Clonar el repositorio y ejecuta npm install para instalar dependencias.
 
 2. Configurar las variables de entorno necesarias (base de datos, JWT, etc.).
